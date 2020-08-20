@@ -80,12 +80,12 @@ NOTE: this style tag can show up only once or at every code block you need it.
 		<label clickhere>C:\Windows\System32</label>
 		<label>D:\</label>
 	</list>
-	<icons column2x>
-		<icon file></icon>
-		<icon file></icon>
-		<icon image></icon>
-		<icon executable></icon>
-	</icons>
+	<list column2x icons>
+		<icon file>Autoexec.bat</icon>
+		<icon file>config.sys</icon>
+		<icon image>wallpaper.bmp</icon>
+		<icon executable>windows.exe</icon>
+	</list>
 </window>
 ```
 
