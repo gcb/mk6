@@ -44,6 +44,9 @@ Tasks:
 - [ ] radio buttons
 - [ ] menus
 - - [ ] context menus
+- [ ] extension/patchs to md parsers
+- - [ ] rust (pulldown-cmark)
+- - [ ] python
 
 ## Out of scope
 
