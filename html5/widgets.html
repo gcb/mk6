@@ -22,13 +22,21 @@ mk6win skip five::before { content: "..." }
 
 
 
-mk6win { margin-top: 1em; display: block; min-width: 1em; min-height: 2em; }
-mk6win[dialog] { width: 80%; margin-left: auto; margin-right: auto; }
+mk6bg, mk6win {
+	display: flex; flex-flow: column;
+	margin-top: 1em;
+	min-width: 1em; min-height: 1.5em; }
+mk6bg > mk6win { margin: 1em; }
 
-mk6win *[column] { display: inline-block; width: 33% ;}
-mk6win *[column2x] { display: inline-block; width: 66% ;}
+mk6win[dialog] { width: 80%; margin: auto; }
 
-mk6win title { display: block; line-height: 1.5em; }
+mk6win * {
+	display: flex;
+	flex-flow: column;
+	flex-grow: 1; }
+mk6win div[c], mk6win div[h] { flex-flow: row; }
+
+mk6win title { display: block; line-height: 1.5em; margin-bottom: .5em }
 
 mk6win list { display: block; vertical-align: top;  min-width: 1em; min-height: 2em; }
 mk6win list label { display: block; }
@@ -37,13 +45,43 @@ mk6win icon { display: inline-block; width: 6em; height: 5em; }
 mk6win icon[file]:before { content: icon-file; }
 icon-file { display: inline-block; width: 3em; height: 3em; background-color: red; }
 
-/* theme Xwindow flat */
+/* theme X11 flat */
+mk6bg { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='2' height='2'><rect x = '0' y = '0' width = '1' height = '1' fill = 'black' stroke = 'black' stroke-width = '0'/><rect x = '1' y = '1' width = '1' height = '1' fill = 'black' stroke = 'black' stroke-width = '0'/></svg>"); }
 mk6win { background-color: #ccc; color: black; border: 1px solid black; }
 mk6win title { text-align: center; background-color: blue; color: white; }
 mk6win list { background-color: white; color: black; }
 mk6win list label[clickhere] { background-color: blue; color: white; }
 mk6win icon { background-color: #fff; color: black; border: 1px solid black; }
 
+/* windows theme */
+mk6bg.windows { background: #008081; }
+mk6bg.windows mk6win,
+mk6win.windows { background: #c0c0c0; border: 1px solid #c0c0c0; border-top-color: #e2ecec; border-left-color: #ededed; border-bottom-color: #6f6d6e; border-right-color: #252525;  }
+mk6bg.windows title,
+mk6win.windows title { background-color: #808080; margin: 1px;
+	background: #808080; border: 1px solid #808080; border-top-color: #6f6d6e; border-left-color: #252525; border-bottom-color: #e2ecec; border-right-color: #ededed;  }
+mk6bg.windows input,
+mk6win.windows input,
+mk6bg.windows list,
+mk6win.windows list { background-color: #fff; color: black;  margin: 4px;
+	background: #fff; border: 1px solid #fff; border-top-color: #6f6d6e; border-left-color: #252525; border-bottom-color: #e2ecec; border-right-color: #ededed;  }
+
+/* osx theme */
+mk6bg.osx *, mk6win.osx * { font-family: Helvetica, sans-serif; background: transparent; }
+mk6bg.osx { background-color: #eef; background: radial-gradient(ellipse at top, #bcd, transparent), radial-gradient(ellipse at bottom, #47b, transparent);}
+mk6bg.osx mk6win,
+mk6win.osx {
+	background-color: #ededed;
+	border: 0 transparent;
+	border-radius: 8px;
+	background-image:linear-gradient(180deg, #e8e8e8 1em, #b3b3b3 2em, #ededed 10px);
+	box-shadow: 0px 0px 9px 5px rgba(0, 0, 0, 0.36);
+}
+mk6bg.osx title,
+mk6win.osx title { background-color: transparent; color: black; }
+
+
+/* lame tutorial clicks highlight */
 mk6win *[clickhere] { position: relative; }
 mk6win *[clickhere]::after {
 	display: block;
@@ -56,7 +94,15 @@ mk6win *[clickhere]::after {
 	top: 0; left: .5em;
 	transform: rotate(-30deg);
 	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+	animation-duration: 5s;
+	animation-name: clickhere;
+	animation-iteration-count: infinite;
 	}
+@keyframes clickhere {
+	from { top: 10px; left: 10px; transparency: 100%; }
+	to   { top: 0;    left: 0;   transparency: 0; }
+}
+/* TODO: double click animation */
 
 </style>
 <body>
@@ -67,24 +113,64 @@ mk6win *[clickhere]::after {
 <mk6win><title>My Window</title>
 </mk6win>
 
+<mk6bg>
+<mk6win><title>My Window over background</title>
+</mk6win>
+</mk6bg>
+
 <h1>grid</h1>
 
 <h2>window at any size</h2>
 <mk6win style="width:33%"><title>My Window</title>
 </mk6win>
 
+<mk6win><title>Kinda inspired in tk</title>
+<p>any element is a flex block stacked in rows</p>
+<p>which css messes up yet again calling flex-flow: column;</p>
+<p>line 3</p>
+<p>line 4</p>
+</mk6win>
+
+<mk6win><title>my window</title>
+<div c>
+<div>
+<p row>a &lt;div c&gt; (parent of this one)</p>
+<p row>makes it children</p>
+<p row>stack in columns</p>
+</div>
+<div>
+<p>column 2</p>
+</div>
+</div>
+</mk6win>
+
+<mk6win><title>my window</title>
+<div c>
+<p row>A0</p>
+<p row>B0</p>
+<p row>C0</p>
+<div>
+<p row>A</p>
+<p row>B</p>
+<p row>C</p>
+</div>
+</div>
+<p>mix and match</p>
+</mk6win>
 
 <h1>lists</h1>
 
 <mk6win><title>My Window</title>
+<div c>
 <list column>
 	<label>Option1</label>
 </list>
 <label>asdf</label><input value="asdfasdf"/>
+</div>
 </mk6win>
 
 <mk6win><title>My Window</title>
-<label>value:</label><input value="=SUM(A1:B12)"/>
+<div c><label>value:</label><input value="=SUM(A1:B12)"/></div>
 <list>
 	<label>Long option on a list full.</label>
 	<label>Long option on a list full.</label>
@@ -95,7 +181,9 @@ mk6win *[clickhere]::after {
 <h1>skip</h1>
 <mk6win><title>My Window</title>
 <skip><two/></skip>
+<div c>
 <label>Input something</label><input value="type something here">
+</div>
 </mk6win>
 
 
@@ -105,37 +193,81 @@ mk6win *[clickhere]::after {
 
 <mk6win><title>IntelliJ IDE Community</title>
 	<mk6win dialog><title>Settings</title>
-	<list column>
-		<skip><two></skip>
-		<label>Compiler</label>
-		<label clickhere=1>memory</label>
-	</list><div column>
-		<skip><two/></skip>
-		<label>heap</label><input value="over 9000"/>
+	<div c>
+		<list column>
+			<skip><two></two></skip>
+			<label>Build & Tools</label>
+			<label clickhere=1> |- Compiler</label>
+			<skip><two></two></skip>
+		</list>
+		<div>
+			<skip><two></two></skip>
+			<div c>
+				<label clickhere=2>heap</label><input value="over 9000"/>
+			</div>
+			<skip><two></two></skip>
+			<div c>
+				<button>Cancel</button>
+				<button default clickhere=3>Save</button>
+			</div>
+		</div>
 	</div>
-	<button>Cancel</button>
-	<button default clickhere=2>Save</button>
 	</mk6win>
 </mk6win>
 
 <h2>win File explorer</h2>
+<p>background and treeview</p>
 
+<mk6bg class="windows">
 <mk6win>
-	<title>Title of the window</title>
-	<list column>
-		<label>C:\</label>
-		<label>C:\Windows</label>
-		<skip></skip>
-		<label clickhere>C:\Windows\System32</label>
-		<label>D:\</label>
-	</list>
-	<list column2x>
+	<title>Windows Explorer</title>
+	<div c>File Edit View Help</div>
+	<input value="C:\windows\system32" />
+	<div c>
+		<list column>
+			<label>C:\</label>
+			<label>C:\Windows</label>
+			<skip></skip>
+			<label clickhere>C:\Windows\System32</label>
+			<label>D:\</label>
+		</list>
+		<list>
+			<icon file>Autoexec.bat</icon>
+			<icon file>config.sys</icon>
+			<icon image>wallpaper.bmp</icon>
+			<icon executable>windows.exe</icon>
+		</list>
+	</div>
+</mk6win>
+</mk6bg>
+
+<p>simple</p>
+<mk6win style="max-width: 500px;" class="windows">
+	<title>Windows Explorer</title>
+	<div c>File Edit View Help</div>
+	<input value="C:\windows\system32" />
+	<list>
 		<icon file>Autoexec.bat</icon>
 		<icon file>config.sys</icon>
-		<icon image>wallpaper.bmp</icon>
+		<icon image clickhere="double click">wallpaper.bmp</icon>
 		<icon executable>windows.exe</icon>
 	</list>
 </mk6win>
 
 <h2>mac preferences window</h2>
 
+<mk6bg class="osx" style="max-width: 500px;">
+<mk6win>
+	<title>System Preferences</title>
+	<list>
+	<icon image clickhere>General</icon>
+	<icon image>Dock</icon>
+	<icon image>...</icon>
+	</list>
+	<list>
+	<icon image>Display</icon>
+	<icon image>Energy</icon>
+	<icon image>...</icon>
+	</list>
+</mk6win>
+</mk6bg>

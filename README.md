@@ -35,7 +35,7 @@ Tasks:
 - [ ] Markdown syntax ( \`\`\`mk6 or \`\`\`ui? )
 - [X] windows
 - - [X] titles
-- - [X] grid (rudimentary 3 column mode only)
+- - [X] grid (loosely based on [Tk's pack geometry manager](https://wiki.tcl-lang.org/page/pack))
 - - [ ] buttons
 - - [ ] border
 - [ ] labels
@@ -44,8 +44,16 @@ Tasks:
 - [ ] radio buttons
 - [ ] menus
 - - [ ] context menus
+- [ ] Tutorial elements
+- - [X] click here
+- - [ ] double click here
+- - [ ] touch here
+- - [ ] drag this there
+- - [ ] type
+- - [ ] keyboard shortcuts?
 - [ ] extension/patchs to md parsers
 - - [ ] rust (pulldown-cmark)
+- - - [ ] compile to js
 - - [ ] python
 
 ## Out of scope
@@ -54,7 +62,7 @@ Only elements actually present on 90% of UIs will be included.
 
 Not in scope: call out boxes, arrows (use color borders), comment boxes floating on UI (use text around image)
 
-Not in scope: Images. Duh! Light textures that can be done with pure CSS and represent look of a well known UI element are OK.
+Not in scope: Images. Duh!
 
 Not in scope: Animations.
 
